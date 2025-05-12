@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nm*5*k+ff_2o37i4y_$)q-1%(t^u*o4-=pt7cmmy-n=49-+ns2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = []
 
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'BiblioAPP'
 ]
 
 MIDDLEWARE = [
@@ -73,9 +74,13 @@ WSGI_APPLICATION = 'Biblioteca.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    'default':{
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bwqkk3ohpderchkujvkd',
+        'USER': 'u0bsqjz4dp6utetw',
+        'PASSWORD': 'pb61qfZ8pAmPOeNPZUBz',
+        'HOST': 'bwqkk3ohpderchkujvkd-mysql.services.clever-cloud.com',  # O la IP de tu servidor
+        'PORT': '3306',  # Puerto por defecto de PostgreSQL
     }
 }
 
