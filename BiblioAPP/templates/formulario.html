@@ -1,8 +1,147 @@
-<h2>{{ form.instance.id|yesno:"Editar libro,Nuevo libro" }}</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar</button>
-</form>
-<a href="{% url 'principal' %}">Volver al inicio</a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ form.instance.id|yesno:"Editar libro,Nuevo libro" }}</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            background-color: #f8f4e5;
+            padding: 3rem;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: #4a3728;
+            position: relative;
+        }
 
+        h1, h2 {
+            color: #4a3728;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #d4a373;
+            padding-bottom: 0.5rem;
+            font-weight: normal;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 3rem;
+        }
+
+        /* Estilo para el formulario */
+        form {
+            width: 100%;
+            max-width: 500px;
+            background-color: #fffaf0;
+            border: 1px solid #d4a373;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Estilo para los campos del formulario (generados por form.as_p) */
+        form p {
+            margin: 1rem 0;
+        }
+
+        form label {
+            display: block;
+            font-weight: normal;
+            color: #4a3728;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        form input, form select, form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #d4a373;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            font-size: 1rem;
+            color: #4a3728;
+            background-color: #f8f4e5;
+        }
+
+        form input:focus, form select:focus, form textarea:focus {
+            outline: none;
+            border-color: #8b5a2b;
+            background-color: #fffaf0;
+        }
+
+        /* Estilo para el botón Guardar */
+        button[type="submit"] {
+            background-color: #8b5a2b;
+            color: #fffaf0;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #704214;
+        }
+
+        /* Estilo para el enlace Volver al inicio */
+        a {
+            text-decoration: none;
+            color: #fffaf0;
+            background-color: #8b5a2b;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        a:hover {
+            background-color: #704214;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            body {
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            form {
+                max-width: 100%;
+            }
+
+            button[type="submit"], a {
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>{{ form.instance.id|yesno:"Editar libro,Nuevo libro" }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+    <a href="{% url 'principal' %}">Volver al inicio</a>
+</body>
+</html>
