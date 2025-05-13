@@ -4,37 +4,96 @@
     <meta charset="UTF-8">
     <title>Gestor de Biblioteca</title>
     <style>
+        /* Estilos generales */
         body {
-            font-family: Arial, sans-serif;
-            padding: 2rem;
+            font-family: 'Georgia', 'Times New Roman', Times, serif; /* Tipografía clásica para bibliotecas */
+            background-color: #f8f4e5; /* Fondo crema claro, reminiscente de páginas de libros */
+            padding: 3rem;
+            margin: 0;
+            display: flex;
+            flex-direction: column; /* Apila elementos verticalmente */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #4a3728; /* Marrón oscuro para el texto, elegante y legible */
         }
+
         h1 {
-            color: #2c3e50;
+            color: #4a3728; /* Marrón oscuro para el título */
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #d4a373; /* Línea inferior en tono dorado */
+            padding-bottom: 0.5rem;
+            font-weight: normal; /* Menos peso para un look más clásico */
         }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            margin: 1rem 0;
-        }
-        a {
-            text-decoration: none;
-            color: white;
-            background-color: #3498db;
-            padding: 0.5rem 1rem;
+
+        /* Contenedor para los botones */
+        .button-container {
+            display: flex; /* Alinea los elementos horizontalmente */
+            justify-content: center; /* Centra horizontalmente */
+            gap: 1rem; /* Espacio entre botones */
+            flex-wrap: wrap; /* Permite que se ajusten en pantallas pequeñas */
+            width: 100%;
+            max-width: 900px; /* Aumentamos el ancho máximo para dar más espacio */
+            background-color: #fffaf0; /* Fondo blanco cálido */
+            border: 1px solid #d4a373; /* Borde dorado suave */
             border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra muy suave */
+            padding: 1.5rem;
         }
-        a:hover {
-            background-color: #2980b9;
+
+        .button-container a {
+            text-decoration: none;
+            color: #fffaf0; /* Texto claro sobre fondo oscuro */
+            background-color: #8b5a2b; /* Marrón madera, ideal para una biblioteca */
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+            flex: 1; /* Hace que los botones se distribuyan uniformemente */
+            text-align: center;
+            white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+            min-width: 150px; /* Ancho mínimo para que los botones sean más largos */
+        }
+
+        .button-container a:hover {
+            background-color: #704214; /* Marrón más oscuro al pasar el mouse */
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            body {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .button-container {
+                flex-direction: column; /* Apila verticalmente en pantallas pequeñas */
+                gap: 0.5rem; /* Menos espacio entre botones */
+            }
+
+            .button-container a {
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
+                min-width: 120px; /* Ajuste para pantallas pequeñas */
+            }
         }
     </style>
 </head>
 <body>
     <h1>Bienvenido al Gestor de Biblioteca</h1>
-    <ul>
-        <li><a href="{% url 'lista_libros' %}">📚 Gestionar Libros</a></li>
-
-    </ul>
+    <div class="button-container">
+        <a href="{% url 'lista_libros' %}">📚 Gestionar Libros</a>
+        <a href="{% url 'lista_autores' %}">✍️ Gestionar Autores</a>
+        <a href="{% url 'lista_usuarios' %}">👤 Gestionar Usuarios</a>
+        <a href="{% url 'lista_prestamos' %}">📖 Gestionar Préstamos</a>
+    </div>
 </body>
 </html>

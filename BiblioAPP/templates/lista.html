@@ -1,88 +1,289 @@
-<h2>Lista de Libros</h2>
-<a href="{% url 'crear_libro' %}">Nuevo Libro</a>
-<ul>
-    {% for libro in libros %}
-        <li>{{ libro.titulo }} - {{ libro.autor.nombre }} - {{ libro.genero }}</li>
-    {% empty %}
-        <li>No hay libros registrados.</li>
-    {% endfor %}
-</ul>
-<a href="{% url 'principal' %}">Volver</a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestor de Biblioteca</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            background-color: #f8f4e5;
+            padding: 3rem;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: #4a3728;
+            position: relative; /* Para posicionar el botón Volver */
+        }
+
+        h1, h2 {
+            color: #4a3728;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #d4a373;
+            padding-bottom: 0.5rem;
+            font-weight: normal;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 3rem;
+        }
+
+        /* Contenedor para botones horizontales (como en la página principal) */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 2rem;
+        }
+
+        .button-container a {
+            text-decoration: none;
+            color: #fffaf0;
+            background-color: #8b5a2b;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .button-container a:hover {
+            background-color: #704214;
+        }
+
+        /* Estilos para enlaces individuales (Nuevo Libro, Volver, etc.) */
+        .standalone-link {
+            display: inline-block;
+            text-decoration: none;
+            color: #fffaf0;
+            background-color: #8b5a2b;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .standalone-link:hover {
+            background-color: #704214;
+        }
+
+        /* Estilo específico para el botón Volver */
+        #volver {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+        }
+
+        /* Estilos para la lista de libros */
+        ul.book-list {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            max-width: 800px;
+            background-color: #fffaf0;
+            border: 1px solid #d4a373;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        ul.book-list li {
+            padding: 1rem;
+            border-bottom: 1px solid #d4a373;
+            color: #4a3728;
+            font-size: 1rem;
+        }
+
+        ul.book-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Estilos para tablas */
+        table {
+        width: 100%;
+        max-width: 800px;
+        background-color: #fffaf0;
+        border-collapse: collapse;
+        border: 1px solid #d4a373;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+        }
 
 
-<h2>Listado de Préstamos</h2>
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #d4a373;
+        }
 
-<a href="{% url 'crear_prestamo' %}">+ Nuevo Préstamo</a>
+        th {
+            background-color: #8b5a2b;
+            color: #fffaf0;
+            font-weight: normal;
+            font-size: 1rem;
+        }
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Libro</th>
-        <th>Usuario</th>
-        <th>Fecha Préstamo</th>
-        <th>Fecha Devolución</th>
-        <th>Acciones</th>
-    </tr>
-    {% for prestamo in prestamos %}
-    <tr>
-        <td>{{ prestamo.id }}</td>
-        <td>{{ prestamo.libro }}</td>
-        <td>{{ prestamo.usuario }}</td>
-        <td>{{ prestamo.fecha_prestamo }}</td>
-        <td>{{ prestamo.fecha_devolucion }}</td>
-        <td>
-            <a href="{% url 'editar_prestamo' prestamo.id %}">Editar</a>
-            |
-            <a href="{% url 'eliminar_prestamo' prestamo.id %}">Eliminar</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+        td {
+            color: #4a3728;
+            font-size: 1rem;
+        }
 
-<h2>Listado de Usuarios</h2>
+        tr:last-child td {
+            border-bottom: none;
+        }
 
-<a href="{% url 'crear_usuario' %}">+ Nuevo Usuario</a>
+        /* Estilos para enlaces dentro de las tablas (Editar/Eliminar) */
+        td a {
+            text-decoration: none;
+            color: #8b5a2b;
+            font-weight: bold;
+            margin: 0 0.5rem;
+            transition: color 0.3s ease;
+        }
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Email</th>
-        <th>Acciones</th>
-    </tr>
-    {% for usuario in usuarios %}
-    <tr>
-        <td>{{ usuario.id }}</td>
-        <td>{{ usuario.nombre }}</td>
-        <td>{{ usuario.email }}</td>
-        <td>
-            <a href="{% url 'editar_usuario' usuario.id %}">Editar</a>
-            |
-            <a href="{% url 'eliminar_usuario' usuario.id %}">Eliminar</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+        td a:hover {
+            color: #704214;
+        }
 
-<h2>Listado de Autores</h2>
+        /* Responsive design */
+        @media (max-width: 600px) {
+            body {
+                padding: 1.5rem;
+            }
 
-<a href="{% url 'crear_autor' %}">+ Nuevo Autor</a>
+            h1 {
+                font-size: 1.8rem;
+            }
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Acciones</th>
-    </tr>
-    {% for autor in autores %}
-    <tr>
-        <td>{{ autor.id }}</td>
-        <td>{{ autor.nombre }}</td>
-        <td>
-            <a href="{% url 'editar_autor' autor.id %}">Editar</a>
-            |
-            <a href="{% url 'eliminar_autor' autor.id %}">Eliminar</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .button-container, .standalone-link, table, ul.book-list {
+                max-width: 100%;
+            }
+
+            .button-container a, .standalone-link {
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
+                min-width: 120px;
+            }
+
+            th, td {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'principal' %}" class="standalone-link" id="volver">Volver</a>
+
+    <h2>Lista de Libros</h2>
+    <a href="{% url 'crear_libro' %}" class="standalone-link">Nuevo Libro</a>
+    <ul class="book-list">
+        {% for libro in libros %}
+            <li>{{ libro.titulo }} - {{ libro.autor.nombre }} - {{ libro.genero }}</li>
+        {% empty %}
+            <li>No hay libros registrados.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Listado de Préstamos</h2>
+    <a href="{% url 'crear_prestamo' %}" class="standalone-link">Nuevo Préstamo</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Libro</th>
+            <th>Usuario</th>
+            <th>Fecha Préstamo</th>
+            <th>Fecha Devolución</th>
+            <th>Acciones</th>
+        </tr>
+        {% for prestamo in prestamos %}
+        <tr>
+            <td>{{ prestamo.id }}</td>
+            <td>{{ prestamo.libro }}</td>
+            <td>{{ prestamo.usuario }}</td>
+            <td>{{ prestamo.fecha_prestamo }}</td>
+            <td>{{ prestamo.fecha_devolucion }}</td>
+            <td>
+                <a href="{% url 'editar_prestamo' prestamo.id %}">Editar</a>
+                |
+                <a href="{% url 'eliminar_prestamo' prestamo.id %}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Listado de Usuarios</h2>
+    <a href="{% url 'crear_usuario' %}" class="standalone-link">Nuevo Usuario</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Acciones</th>
+        </tr>
+        {% for usuario in usuarios %}
+        <tr>
+            <td>{{ usuario.id }}</td>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>
+                <a href="{% url 'editar_usuario' usuario.id %}">Editar</a>
+                |
+                <a href="{% url 'eliminar_usuario' usuario.id %}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Listado de Autores</h2>
+    <a href="{% url 'crear_autor' %}" class="standalone-link">Nuevo Autor</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+        {% for autor in autores %}
+        <tr>
+            <td>{{ autor.id }}</td>
+            <td>{{ autor.nombre }}</td>
+            <td>
+                <a href="{% url 'editar_autor' autor.id %}">Editar</a>
+                |
+                <a href="{% url 'eliminar_autor' autor.id %}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
