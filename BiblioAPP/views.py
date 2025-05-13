@@ -52,7 +52,7 @@ def eliminar_libro(request, pk):
 
 def listar_libros(request):
     libros = Libro.objects.all()
-    return render(request, "libros/lista.html", {
+    return render(request, "lista.html", {
         "objetos": libros,
         "titulo": "Libros",
         "crear_url": "crear_libro",
@@ -63,7 +63,7 @@ def listar_libros(request):
 
 def detalle_libro(request, pk):
     libro = get_object_or_404(Libro, pk=pk)
-    return render(request, 'libros/detalle.html', {'libro': libro})
+    return render(request, 'detalle.html', {'libro': libro})
 
 # Editar libro
 def editar_libro(request, pk):
@@ -80,12 +80,12 @@ def eliminar_libro(request, pk):
     if request.method == "POST":
         libro.delete()
         return redirect('lista_libros')
-    return render(request, 'libros/eliminar.html', {'libro': libro})
+    return render(request, 'eliminar.html', {'libro': libro})
 
 # Ver autor
 def detalle_autor(request, pk):
     autor = get_object_or_404(Autor, pk=pk)
-    return render(request, 'autores/detalle.html', {'autor': autor})
+    return render(request, 'detalle.html', {'autor': autor})
 
 # Editar autor
 def editar_autor(request, pk):
@@ -102,12 +102,12 @@ def eliminar_autor(request, pk):
     if request.method == "POST":
         autor.delete()
         return redirect('lista_autores')
-    return render(request, 'autores/eliminar.html', {'autor': autor})
+    return render(request, 'eliminar.html', {'autor': autor})
 
 # Ver usuario
 def detalle_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
-    return render(request, 'usuarios/detalle.html', {'usuario': usuario})
+    return render(request, 'detalle.html', {'usuario': usuario})
 
 # Editar usuario
 def editar_usuario(request, pk):
@@ -124,12 +124,12 @@ def eliminar_usuario(request, pk):
     if request.method == "POST":
         usuario.delete()
         return redirect('lista_usuarios')
-    return render(request, 'usuarios/eliminar.html', {'usuario': usuario})
+    return render(request, 'eliminar.html', {'usuario': usuario})
 
 # Ver préstamo
 def detalle_prestamo(request, pk):
     prestamo = get_object_or_404(Prestamo, pk=pk)
-    return render(request, 'prestamos/detalle.html', {'prestamo': prestamo})
+    return render(request, 'detalle.html', {'prestamo': prestamo})
 
 # Editar préstamo
 def editar_prestamo(request, pk):
@@ -146,12 +146,12 @@ def eliminar_prestamo(request, pk):
     if request.method == "POST":
         prestamo.delete()
         return redirect('lista_prestamos')
-    return render(request, 'prestamos/eliminar.html', {'prestamo': prestamo})
+    return render(request, 'eliminar.html', {'prestamo': prestamo})
 
 # Lista de préstamos
 def lista_prestamos(request):
     prestamos = Prestamo.objects.all()
-    return render(request, 'prestamos/lista.html', {'prestamos': prestamos})
+    return render(request, 'lista.html', {'prestamos': prestamos})
 
 # Crear préstamo
 def crear_prestamo(request):
@@ -167,7 +167,7 @@ def crear_prestamo(request):
 # Lista de usuarios
 def lista_usuarios(request):
     usuarios = Usuario.objects.all()
-    return render(request, 'usuarios/lista.html', {'usuarios': usuarios})
+    return render(request, 'lista.html', {'usuarios': usuarios})
 
 # Crear usuario
 def crear_usuario(request):
@@ -182,7 +182,7 @@ def crear_usuario(request):
 
 def lista_autores(request):
     autores = Autor.objects.all()
-    return render(request, 'autores/lista.html', {'autores': autores})
+    return render(request, 'lista.html', {'autores': autores})
 
 # Crear autor
 def crear_autor(request):

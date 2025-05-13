@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url='/index/')),
     path('index/', views.principal, name='principal'),
+   
 
     # Libros
     path('libros/', views.lista_libros, name='lista_libros'),
