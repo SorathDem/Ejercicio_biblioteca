@@ -23,9 +23,16 @@ from .models import Libro, Autor, Usuario, Prestamo
 from .forms import LibroForm, AutorForm, UsuarioForm, PrestamoForm
 
 # Libros
-def lista_libros(request):
+def listar_libros(request):
+    query = request.GET.get('q', '')  # Obtener el término de búsqueda desde la URL
     libros = Libro.objects.all()
-    return render(request, "lista.html", {"libros": libros})
+
+    # Si hay un término de búsqueda, filtrar los resultados
+    if query:
+        libros = libros.filter(titulo__icontains=query)  # Buscar por título (puedes agregar más filtros)
+
+    return render(request, 'tu_template.html', {'libros': libros, 'query': query})
+
 
 def crear_libro(request):
     if request.method == "POST":
