@@ -22,9 +22,12 @@ class Libro(models.Model):
         return self.titulo
 
 class Prestamo(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    libro = models.ForeignKey(Libro, on_delete=models.CASCADE)
-    fecha_prestamo = models.DateField(auto_now_add=True)
-    fecha_devolucion = models.DateField(blank=True)
+    libro = models.ForeignKey('Libro', on_delete=models.CASCADE)
+    usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
+    fecha_prestamo = models.DateField()
+    fecha_devolucion = models.DateField() 
+
+    def __str__(self):
+        return f'{self.libro} prestado a {self.usuario}'
                                         
             

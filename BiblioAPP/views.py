@@ -50,15 +50,18 @@ def eliminar_libro(request, pk):
     libro.delete()
     return redirect("lista_libros")
 
-def listar_libros(request):
+def vista_general(request):
     libros = Libro.objects.all()
-    return render(request, "lista.html", {
-        "objetos": libros,
-        "titulo": "Libros",
-        "crear_url": "crear_libro",
-        "editar_url": "editar_libro",
-        "eliminar_url": "eliminar_libro",
+    autores = Autor.objects.all()
+    usuarios = Usuario.objects.all()
+    prestamos = Prestamo.objects.all()
+    return render(request, 'lista.html', {
+        'libros': libros,
+        'autores': autores,
+        'usuarios': usuarios,
+        'prestamos': prestamos
     })
+
 # Repite lo mismo para Autor, Usuario, Prestamo con sus respectivas vistas y templates.
 
 def detalle_libro(request, pk):

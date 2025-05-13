@@ -22,3 +22,7 @@ class PrestamoForm(forms.ModelForm):
     class Meta:
         model = Prestamo
         fields = '__all__'
+        widgets = {
+            'fecha_prestamo': forms.DateInput(attrs={'type': 'date'}),
+            'fecha_devolucion': forms.DateInput(attrs={'type': 'date'}),
+        }
