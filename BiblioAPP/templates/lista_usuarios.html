@@ -4,7 +4,6 @@
 
 {% block content %}
 <h2>Listado de Usuarios</h2>
- <input type="text" id="buscadorUusarios" placeholder="Buscar por nombre" oninput="filtrarUsuarios()">
 <a href="{% url 'crear_usuario' %}" class="standalone-link">Nuevo Usuario</a>
 
 <table>
@@ -28,22 +27,5 @@
 </table>
 {% endblock %}
 
-<script>
-function filtrarUsuarios() {
-    const input = document.getElementById('buscadorUsuarios');
-    const filtro = input.value.toLowerCase();
-    const filas = document.querySelectorAll('#tablaUsuarios .usuario-item');
 
-    filas.forEach(fila => {
-        const nombre = fila.querySelector('.col-nombre').innerText.toLowerCase();
-        const email = fila.querySelector('.col-email').innerText.toLowerCase();
-
-        if (nombre.includes(filtro) || email.includes(filtro)) {
-            fila.style.display = '';
-        } else {
-            fila.style.display = 'none';
-        }
-    });
-}
-</script>
 
