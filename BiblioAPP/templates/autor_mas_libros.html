@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Autor con Más Libros{% endblock %}
+
+{% block content %}
+<h2>Autor con Más Libros</h2>
+
+{% if autor %}
+    <p><strong>{{ autor.nombre }}</strong> tiene <strong>{{ autor.total_libros }}</strong> libro(s) registrados.</p>
+{% else %}
+    <p>No hay autores registrados.</p>
+{% endif %}
+
+{% endblock %}

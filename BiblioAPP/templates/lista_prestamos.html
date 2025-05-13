@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Listado de Préstamos{% endblock %}
+
+{% block content %}
+<h2>Listado de Préstamos</h2>
+<input type="text" id="buscadorPrestamos" placeholder="Buscar por libro" oninput="filtrarPrestamos()">
+<a href="{% url 'crear_prestamo' %}" class="standalone-link">Nuevo Préstamo</a>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Libro</th>
+        <th>Usuario</th>
+        <th>Fecha Préstamo</th>
+        <th>Fecha Devolución</th>
+        <th>Acciones</th>
+    </tr>
+    {% for prestamo in prestamos %}
+    <tr>
+        <td>{{ prestamo.id }}</td>
+        <td>{{ prestamo.libro }}</td>
+        <td>{{ prestamo.usuario }}</td>
+        <td>{{ prestamo.fecha_prestamo }}</td>
+        <td>{{ prestamo.fecha_devolucion }}</td>
+        <td>
+            {% if not prestamo.devuelto %}
+                <a href="{% url 'marcar_como_devuelto' prestamo.id %}">Marcar como Devuelto</a> |
+            {% else %}
+                <span style="color: green;">Devuelto</span> |
+            {% endif %}
+            <a href="{% url 'editar_prestamo' prestamo.id %}">Editar</a> |
+            <a href="{% url 'eliminar_prestamo' prestamo.id %}">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
+
+<script>
+function filtrarPrestamos() {
+    const input = document.getElementById('buscadorPrestamos');
+    const filtro = input.value.toLowerCase();
+    const filas = document.querySelectorAll('#tablaPrestamos .prestamo-item');
+
+    filas.forEach(fila => {
+        const libro = fila.querySelector('.col-libro').innerText.toLowerCase();
+        const usuario = fila.querySelector('.col-usuario').innerText.toLowerCase();
+        const fechaPrestamo = fila.querySelector('.col-fecha-prestamo').innerText.toLowerCase();
+        const fechaDevolucion = fila.querySelector('.col-fecha-devolucion').innerText.toLowerCase();
+
+        if (libro.includes(filtro) || usuario.includes(filtro) || fechaPrestamo.includes(filtro) || fechaDevolucion.includes(filtro)) {
+            fila.style.display = '';
+        } else {
+            fila.style.display = 'none';
+        }
+    });
+}
+</script>
+

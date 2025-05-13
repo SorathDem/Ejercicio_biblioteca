@@ -85,6 +85,14 @@
 </head>
 <body>
     <a href="{% url 'principal' %}" class="standalone-link" id="volver">Volver</a>
+        <!-- Navegación entre apartados -->
+<div class="button-container">
+    <a href="{% url 'listar_libros' %}" class="nav-button">Libros</a>
+    <a href="{% url 'lista_prestamos' %}" class="nav-button">Préstamos</a>
+    <a href="{% url 'lista_usuarios' %}" class="nav-button">Usuarios</a>
+    <a href="{% url 'lista_autores' %}" class="nav-button">Autores</a>
+</div>
+
 
     <h2>Lista de Libros</h2>
 

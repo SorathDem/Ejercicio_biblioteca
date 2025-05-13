@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Listado de Autores{% endblock %}
+
+{% block content %}
+<h2>Listado de Autores</h2>
+<input type="text" id="buscadorAutores" placeholder="Buscar por nombre" oninput="filtrarAutores()">
+<a href="{% url 'crear_autor' %}" class="standalone-link">Nuevo Autor</a>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Acciones</th>
+    </tr>
+    {% for autor in autores %}
+    <tr>
+        <td>{{ autor.id }}</td>
+        <td>{{ autor.nombre }}</td>
+        <td>
+            <a href="{% url 'editar_autor' autor.id %}">Editar</a> |
+            <a href="{% url 'eliminar_autor' autor.id %}">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
+<script>
+function filtrarAutores() {
+    const input = document.getElementById('buscadorAutores');
+    const filtro = input.value.toLowerCase();
+    const filas = document.querySelectorAll('#tablaAutores .autor-item');
+
+    filas.forEach(fila => {
+        const nombre = fila.querySelector('.col-nombre').innerText.toLowerCase();
+
+        if (nombre.includes(filtro)) {
+            fila.style.display = '';
+        } else {
+            fila.style.display = 'none';
+        }
+    });
+}
+</script>
+

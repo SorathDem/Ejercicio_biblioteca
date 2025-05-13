@@ -29,7 +29,7 @@ urlpatterns = [
    
 
     # Libros
-    path('libros/', views.lista_libros, name='lista_libros'),
+    path('libros/', views.listar_libros, name='listar_libros'),
     path('libros/nuevo/', views.crear_libro, name='crear_libro'),
     path('libros/<int:pk>/', views.detalle_libro, name='detalle_libro'),
     path('libros/<int:pk>/editar/', views.editar_libro, name='editar_libro'),
@@ -55,6 +55,10 @@ urlpatterns = [
     path('prestamos/<int:pk>/', views.detalle_prestamo, name='detalle_prestamo'),
     path('prestamos/<int:pk>/editar/', views.editar_prestamo, name='editar_prestamo'),
     path('prestamos/<int:pk>/eliminar/', views.eliminar_prestamo, name='eliminar_prestamo'),
+    path('prestamos/<int:prestamo_id>/devolver/', views.marcar_como_devuelto, name='marcar_como_devuelto'),
+    path('autor/mas-libros/', views.autor_con_mas_libros, name='autor_con_mas_libros'),
+    path('prestamos/vencidos/', views.usuarios_con_prestamos_vencidos, name='usuarios_con_prestamos_vencidos'),
+
 ]
 
 

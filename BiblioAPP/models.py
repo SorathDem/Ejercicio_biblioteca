@@ -25,7 +25,11 @@ class Prestamo(models.Model):
     libro = models.ForeignKey('Libro', on_delete=models.CASCADE)
     usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
     fecha_prestamo = models.DateField()
-    fecha_devolucion = models.DateField() 
+    fecha_devolucion = models.DateField()
+    devuelto = models.BooleanField(default=False)  # NUEVO
+
+    class Meta:
+        ordering = ['-fecha_prestamo']
 
     def __str__(self):
         return f'{self.libro} prestado a {self.usuario}'

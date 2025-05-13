@@ -1,5 +1,9 @@
 from django.shortcuts import render
 from .models import Libro
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from django.db.models import Count
+from django.utils.timezone import now
 
 # Create your views here.
 def principal(request):
@@ -7,16 +11,24 @@ def principal(request):
 
 
 
-def buscar_libros(request):
-    query = request.GET.get("q", "")
-    resultados = Libro.objects.filter(
-        titulo__icontains=query
-    ) | Libro.objects.filter(
-        autor__nombre__icontains=query
-    ) | Libro.objects.filter(
-        genero__icontains=query
-    )
-    return render(request, "buscar.html", {"libros": resultados, "query": query})
+def listar_libros(request):
+    query = request.GET.get('q', '')
+    if query:
+        libros = Libro.objects.filter(
+            titulo__icontains=query
+        ) | Libro.objects.filter(
+            autor__nombre__icontains=query
+        ) | Libro.objects.filter(
+            genero__icontains=query
+        )
+    else:
+        libros = Libro.objects.all()
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        html = render_to_string('tabla_libros.html', {'libros': libros})
+        return HttpResponse(f'<div id="tablaLibros">{html}</div>')
+
+    return render(request, 'libros.html', {'libros': libros, 'query': query})
 
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Libro, Autor, Usuario, Prestamo
@@ -31,7 +43,7 @@ def listar_libros(request):
     if query:
         libros = libros.filter(titulo__icontains=query)  # Buscar por título (puedes agregar más filtros)
 
- return render(request, 'lista.html', {'libros': libros, 'query': query})
+    return render(request, 'lista_libros.html', {'libros': libros, 'query': query})
 
 
 def crear_libro(request):
@@ -39,7 +51,7 @@ def crear_libro(request):
         form = LibroForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("lista_libros")
+            return redirect("listar_libros")
     else:
         form = LibroForm()
     return render(request, "formulario.html", {"form": form})
@@ -161,7 +173,7 @@ def eliminar_prestamo(request, pk):
 # Lista de préstamos
 def lista_prestamos(request):
     prestamos = Prestamo.objects.all()
-    return render(request, 'lista.html', {'prestamos': prestamos})
+    return render(request, 'lista_prestamos.html', {'prestamos': prestamos})
 
 # Crear préstamo
 def crear_prestamo(request):
@@ -177,7 +189,7 @@ def crear_prestamo(request):
 # Lista de usuarios
 def lista_usuarios(request):
     usuarios = Usuario.objects.all()
-    return render(request, 'lista.html', {'usuarios': usuarios})
+    return render(request, 'lista_usuarios.html', {'usuarios': usuarios})
 
 # Crear usuario
 def crear_usuario(request):
@@ -192,7 +204,7 @@ def crear_usuario(request):
 
 def lista_autores(request):
     autores = Autor.objects.all()
-    return render(request, 'lista.html', {'autores': autores})
+    return render(request, 'lista_autores.html', {'autores': autores})
 
 # Crear autor
 def crear_autor(request):
@@ -204,3 +216,17 @@ def crear_autor(request):
     else:
         form = AutorForm()
     return render(request, 'formulario.html', {'form': form})
+
+def marcar_como_devuelto(request, prestamo_id):
+    prestamo = get_object_or_404(Prestamo, id=prestamo_id)
+    prestamo.devuelto = True
+    prestamo.save()
+    return redirect('lista_prestamos')
+
+def autor_con_mas_libros(request):
+    autor = Autor.objects.annotate(total_libros=Count('libro')).order_by('-total_libros').first()
+    return render(request, 'autor_mas_libros.html', {'autor': autor})
+
+def usuarios_con_prestamos_vencidos(request):
+    prestamos_vencidos = Prestamo.objects.filter(fecha_devolucion__lt=now().date(), devuelto=False)
+    return render(request, 'prestamos_vencidos.html', {'prestamos': prestamos_vencidos})

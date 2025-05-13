@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Libros</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f8f4e5;
+            padding: 3rem;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #4a3728;
+        }
+
+        h2 {
+            border-bottom: 2px solid #d4a373;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        a.button {
+            background-color: #8b5a2b;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0.5rem;
+        }
+
+        a.button:hover {
+            background-color: #704214;
+        }
+
+        table {
+            width: 100%;
+            max-width: 800px;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        table th, table td {
+            border: 1px solid #d4a373;
+            padding: 0.5rem;
+            text-align: left;
+        }
+
+        .acciones a {
+            margin-right: 10px;
+        }
+
+        #searchForm {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        #searchQuery {
+            padding: 0.5rem;
+            border: 1px solid #d4a373;
+            border-radius: 5px;
+            width: 250px;
+        }
+
+        #searchForm button {
+            margin-left: 0.5rem;
+            background-color: #8b5a2b;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        #searchForm button:hover {
+            background-color: #704214;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'principal' %}" class="button">Volver al Inicio</a>
+
+    <h2>Lista de Libros</h2>
+
+    <input type="text" id="buscadorLibros" placeholder="Buscar por título, autor o género" oninput="filtrarLibros()">
+    <a href="{% url 'crear_libro' %}" class="button">Registrar Libro</a>
+
+
+
+<table id="tablaLibros">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Género</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for libro in libros %}
+        <tr class="libro-item">
+            <td class="col-titulo">{{ libro.titulo }}</td>
+            <td class="col-autor">{{ libro.autor.nombre }}</td>
+            <td class="col-genero">{{ libro.genero }}</td>
+            <td>
+                <a href="{% url 'editar_libro' libro.id %}">Editar</a> |
+                <a href="{% url 'eliminar_libro' libro.id %}">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No hay libros.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<script>
+function filtrarLibros() {
+    const input = document.getElementById('buscadorLibros');
+    const filtro = input.value.toLowerCase();
+    const filas = document.querySelectorAll('#tablaLibros .libro-item');
+
+    filas.forEach(fila => {
+        const titulo = fila.querySelector('.col-titulo').innerText.toLowerCase();
+        const autor = fila.querySelector('.col-autor').innerText.toLowerCase();
+        const genero = fila.querySelector('.col-genero').innerText.toLowerCase();
+
+        if (titulo.includes(filtro) || autor.includes(filtro) || genero.includes(filtro)) {
+            fila.style.display = '';
+        } else {
+            fila.style.display = 'none';
+        }
+    });
+}
+</script>
+
+</body>
+</html>

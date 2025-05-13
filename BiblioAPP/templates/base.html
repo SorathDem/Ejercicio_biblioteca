@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Gestor de Biblioteca{% endblock %}</title>
+    <style>
+        /* Aquí va TODO tu CSS */
+        body {
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            background-color: #f8f4e5;
+            padding: 3rem;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: #4a3728;
+        }
+
+        h1, h2 {
+            color: #4a3728;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #d4a373;
+            padding-bottom: 0.5rem;
+            font-weight: normal;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 3rem;
+        }
+
+        .standalone-link {
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            background-color: #8b5a2b;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .standalone-link:hover {
+            background-color: #704214;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        table th, table td {
+            border: 1px solid #d4a373;
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f1e0c5;
+        }
+
+        #search-container {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        #searchQuery {
+            padding: 0.5rem;
+            font-size: 1.1rem;
+            border: 1px solid #d4a373;
+            border-radius: 5px;
+            width: 250px;
+        }
+
+        #searchForm button {
+            background-color: #8b5a2b;
+            color: #fffaf0;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            margin-left: 0.5rem;
+            cursor: pointer;
+        }
+
+        #searchForm button:hover {
+            background-color: #704214;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="{% url 'principal' %}" class="standalone-link">Volver</a>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Préstamos Vencidos{% endblock %}
+
+{% block content %}
+<h2>Usuarios con Préstamos Vencidos</h2>
+
+{% if prestamos %}
+<table>
+    <tr>
+        <th>Usuario</th>
+        <th>Libro</th>
+        <th>Fecha Devolución</th>
+    </tr>
+    {% for prestamo in prestamos %}
+    <tr>
+        <td>{{ prestamo.usuario }}</td>
+        <td>{{ prestamo.libro }}</td>
+        <td style="color: red;">{{ prestamo.fecha_devolucion }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No hay préstamos vencidos.</p>
+{% endif %}
+
+{% endblock %}
