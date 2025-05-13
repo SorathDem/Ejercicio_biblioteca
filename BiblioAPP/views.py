@@ -31,7 +31,7 @@ def listar_libros(request):
     if query:
         libros = libros.filter(titulo__icontains=query)  # Buscar por título (puedes agregar más filtros)
 
-    return render(request, 'tu_template.html', {'libros': libros, 'query': query})
+ return render(request, 'lista.html', {'libros': libros, 'query': query})
 
 
 def crear_libro(request):
