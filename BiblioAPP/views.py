@@ -60,3 +60,46 @@ def listar_libros(request):
         "eliminar_url": "eliminar_libro",
     })
 # Repite lo mismo para Autor, Usuario, Prestamo con sus respectivas vistas y templates.
+
+def detalle_libro(request, pk):
+    libro = get_object_or_404(Libro, pk=pk)
+    return render(request, 'libros/detalle.html', {'libro': libro})
+
+# Editar libro
+def editar_libro(request, pk):
+    libro = get_object_or_404(Libro, pk=pk)
+    form = LibroForm(request.POST or None, instance=libro)
+    if form.is_valid():
+        form.save()
+        return redirect('lista_libros')
+    return render(request, 'formulario.html', {'form': form})
+
+# Eliminar libro
+def eliminar_libro(request, pk):
+    libro = get_object_or_404(Libro, pk=pk)
+    if request.method == "POST":
+        libro.delete()
+        return redirect('lista_libros')
+    return render(request, 'libros/eliminar.html', {'libro': libro})
+
+# Ver autor
+def detalle_autor(request, pk):
+    autor = get_object_or_404(Autor, pk=pk)
+    return render(request, 'autores/detalle.html', {'autor': autor})
+
+# Editar autor
+def editar_autor(request, pk):
+    autor = get_object_or_404(Autor, pk=pk)
+    form = AutorForm(request.POST or None, instance=autor)
+    if form.is_valid():
+        form.save()
+        return redirect('lista_autores')
+    return render(request, 'formulario.html', {'form': form})
+
+# Eliminar autor
+def eliminar_autor(request, pk):
+    autor = get_object_or_404(Autor, pk=pk)
+    if request.method == "POST":
+        autor.delete()
+        return redirect('lista_autores')
+    return render(request, 'autores/eliminar.html', {'autor': autor})
