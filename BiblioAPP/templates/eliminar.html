@@ -1,7 +1,116 @@
-<h2>¿Estás seguro de que deseas eliminar el libro "{{ libro.titulo }}"?</h2>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Eliminar</button>
-</form>
-<a href="{% url 'lista_libros' %}">Cancelar</a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmar Eliminación</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            background-color: #f8f4e5;
+            padding: 3rem;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: #4a3728;
+            position: relative;
+        }
 
+        h1, h2 {
+            color: #4a3728;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #d4a373;
+            padding-bottom: 0.5rem;
+            font-weight: normal;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 3rem;
+        }
+
+        /* Contenedor para el formulario y enlace */
+        .action-container {
+            display: flex;
+            flex-direction: row; /* Cambiado a row para alinear horizontalmente */
+            justify-content: center; /* Centra los elementos horizontalmente */
+            align-items: center;
+            gap: 1rem; /* Espacio entre botones */
+            margin-top: 2rem;
+            flex-wrap: wrap; /* Permite que se ajusten en pantallas pequeñas */
+        }
+
+        /* Estilo para el formulario y botón Eliminar */
+        form {
+            margin: 0;
+        }
+
+        button[type="submit"] {
+            background-color: #a94442;
+            color: #fffaf0;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #842029;
+        }
+
+        /* Estilo para el enlace Cancelar */
+        .action-container a {
+            text-decoration: none;
+            color: #fffaf0;
+            background-color: #8b5a2b;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .action-container a:hover {
+            background-color: #704214;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            body {
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            button[type="submit"], .action-container a {
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>¿Estás seguro de que deseas eliminar el libro "{{ libro.titulo }}"?</h2>
+    <div class="action-container">
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Eliminar</button>
+        </form>
+        <a href="{% url 'lista_libros' %}">Cancelar</a>
+    </div>
+</body>
+</html>

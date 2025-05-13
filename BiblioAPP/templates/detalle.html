@@ -1,7 +1,116 @@
-<h2>{{ libro.titulo }} - {{ libro.autor.nombre }}</h2>
-<p>Género: {{ libro.genero }}</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles del Libro</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            background-color: #f8f4e5;
+            padding: 3rem;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: #4a3728;
+            position: relative;
+        }
 
-<a href="{% url 'editar_libro' libro.pk %}">Editar</a>
-<a href="{% url 'eliminar_libro' libro.pk %}">Eliminar</a>
-<a href="{% url 'lista_libros' %}">Volver a la lista de libros</a>
+        h1, h2 {
+            color: #4a3728;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #d4a373;
+            padding-bottom: 0.5rem;
+            font-weight: normal;
+        }
 
+        h1 {
+            font-size: 2.2rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 3rem;
+        }
+
+        /* Estilo para el párrafo del género */
+        p {
+            color: #4a3728;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Contenedor para los enlaces */
+        .link-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        /* Estilos para enlaces (Editar, Eliminar, Volver) */
+        .link-container a {
+            text-decoration: none;
+            color: #fffaf0;
+            background-color: #8b5a2b;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .link-container a:hover {
+            background-color: #704214;
+        }
+
+        /* Estilo específico para el enlace "Eliminar" */
+        .link-container a[href*='eliminar'] {
+            background-color: #a94442; /* Rojo oscuro para acción de eliminar */
+        }
+
+        .link-container a[href*='eliminar']:hover {
+            background-color: #842029; /* Rojo más oscuro al pasar el mouse */
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            body {
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .link-container a {
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>{{ libro.titulo }} - {{ libro.autor.nombre }}</h2>
+    <p>Género: {{ libro.genero }}</p>
+
+    <div class="link-container">
+        <a href="{% url 'editar_libro' libro.pk %}">Editar</a>
+        <a href="{% url 'eliminar_libro' libro.pk %}">Eliminar</a>
+        <a href="{% url 'lista_libros' %}">Volver a la lista de libros</a>
+    </div>
+</body>
+</html>
