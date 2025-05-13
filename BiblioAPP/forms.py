@@ -19,4 +19,4 @@ class UsuarioForm(forms.ModelForm):
 class PrestamoForm(forms.ModelForm):
     class Meta:
         model = Prestamo
-        fields = '_all_'
+        fields = '__all__'

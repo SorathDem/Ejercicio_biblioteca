@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista</title>
+</head>
+<body>
+    <h1>Lista de {{ titulo }}</h1>
+
+    <a href="{% url crear_url %}">Agregar nuevo</a>
+
+    <ul>
+        {% for obj in objetos %}
+        <li>
+            {{ obj }}
+            <a href="{% url editar_url obj.pk %}">Editar</a>
+            <a href="{% url eliminar_url obj.pk %}">Eliminar</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -17,3 +17,46 @@ def buscar_libros(request):
         genero__icontains=query
     )
     return render(request, "buscar.html", {"libros": resultados, "query": query})
+
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Libro, Autor, Usuario, Prestamo
+from .forms import LibroForm, AutorForm, UsuarioForm, PrestamoForm
+
+# Libros
+def lista_libros(request):
+    libros = Libro.objects.all()
+    return render(request, "lista.html", {"libros": libros})
+
+def crear_libro(request):
+    if request.method == "POST":
+        form = LibroForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("lista_libros")
+    else:
+        form = LibroForm()
+    return render(request, "formulario.html", {"form": form})
+
+def editar_libro(request, pk):
+    libro = get_object_or_404(Libro, pk=pk)
+    form = LibroForm(request.POST or None, instance=libro)
+    if form.is_valid():
+        form.save()
+        return redirect("lista_libros")
+    return render(request, "formulario.html", {"form": form})
+
+def eliminar_libro(request, pk):
+    libro = get_object_or_404(Libro, pk=pk)
+    libro.delete()
+    return redirect("lista_libros")
+
+def listar_libros(request):
+    libros = Libro.objects.all()
+    return render(request, "libros/lista.html", {
+        "objetos": libros,
+        "titulo": "Libros",
+        "crear_url": "crear_libro",
+        "editar_url": "editar_libro",
+        "eliminar_url": "eliminar_libro",
+    })
+# Repite lo mismo para Autor, Usuario, Prestamo con sus respectivas vistas y templates.
