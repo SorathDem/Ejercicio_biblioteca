@@ -4,7 +4,6 @@
 
 {% block content %}
 <h2>Listado de Préstamos</h2>
-<input type="text" id="buscadorPrestamos" placeholder="Buscar por libro" oninput="filtrarPrestamos()">
 <a href="{% url 'crear_prestamo' %}" class="standalone-link">Nuevo Préstamo</a>
 
 <table>
@@ -37,25 +36,4 @@
 </table>
 {% endblock %}
 
-
-<script>
-function filtrarPrestamos() {
-    const input = document.getElementById('buscadorPrestamos');
-    const filtro = input.value.toLowerCase();
-    const filas = document.querySelectorAll('#tablaPrestamos .prestamo-item');
-
-    filas.forEach(fila => {
-        const libro = fila.querySelector('.col-libro').innerText.toLowerCase();
-        const usuario = fila.querySelector('.col-usuario').innerText.toLowerCase();
-        const fechaPrestamo = fila.querySelector('.col-fecha-prestamo').innerText.toLowerCase();
-        const fechaDevolucion = fila.querySelector('.col-fecha-devolucion').innerText.toLowerCase();
-
-        if (libro.includes(filtro) || usuario.includes(filtro) || fechaPrestamo.includes(filtro) || fechaDevolucion.includes(filtro)) {
-            fila.style.display = '';
-        } else {
-            fila.style.display = 'none';
-        }
-    });
-}
-</script>
 
