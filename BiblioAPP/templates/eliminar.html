@@ -1,0 +1,7 @@
+<h2>¿Estás seguro de que deseas eliminar el libro "{{ libro.titulo }}"?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Eliminar</button>
+</form>
+<a href="{% url 'lista_libros' %}">Cancelar</a>
+

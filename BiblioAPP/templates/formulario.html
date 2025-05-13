@@ -1,7 +1,8 @@
-<h2>Formulario</h2>
+<h2>{{ form.instance.id|yesno:"Editar libro,Nuevo libro" }}</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Guardar</button>
 </form>
-<a href="{% url 'index' %}">Volver al inicio</a>
+<a href="{% url 'index' %}">Volver al inicio</a>
+

@@ -8,3 +8,80 @@
     {% endfor %}
 </ul>
 <a href="{% url 'index' %}">Volver al inicio</a>
+
+<h2>Listado de Préstamos</h2>
+
+<a href="{% url 'crear_prestamo' %}">+ Nuevo Préstamo</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Libro</th>
+        <th>Usuario</th>
+        <th>Fecha Préstamo</th>
+        <th>Fecha Devolución</th>
+        <th>Acciones</th>
+    </tr>
+    {% for prestamo in prestamos %}
+    <tr>
+        <td>{{ prestamo.id }}</td>
+        <td>{{ prestamo.libro }}</td>
+        <td>{{ prestamo.usuario }}</td>
+        <td>{{ prestamo.fecha_prestamo }}</td>
+        <td>{{ prestamo.fecha_devolucion }}</td>
+        <td>
+            <a href="{% url 'editar_prestamo' prestamo.id %}">Editar</a>
+            |
+            <a href="{% url 'eliminar_prestamo' prestamo.id %}">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Listado de Usuarios</h2>
+
+<a href="{% url 'crear_usuario' %}">+ Nuevo Usuario</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Acciones</th>
+    </tr>
+    {% for usuario in usuarios %}
+    <tr>
+        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>
+            <a href="{% url 'editar_usuario' usuario.id %}">Editar</a>
+            |
+            <a href="{% url 'eliminar_usuario' usuario.id %}">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Listado de Autores</h2>
+
+<a href="{% url 'crear_autor' %}">+ Nuevo Autor</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Acciones</th>
+    </tr>
+    {% for autor in autores %}
+    <tr>
+        <td>{{ autor.id }}</td>
+        <td>{{ autor.nombre }}</td>
+        <td>
+            <a href="{% url 'editar_autor' autor.id %}">Editar</a>
+            |
+            <a href="{% url 'eliminar_autor' autor.id %}">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
