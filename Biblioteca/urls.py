@@ -25,21 +25,33 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/index/')),
     path('index/', views.principal, name='principal'),
 
-    path("libros/", views.lista_libros, name="lista_libros"),
-    path("libros/nuevo/", views.crear_libro, name="crear_libro"),
-    path("libros/editar/<int:pk>/", views.editar_libro, name="editar_libro"),
-    path("libros/eliminar/<int:pk>/", views.eliminar_libro, name="eliminar_libro"),
+    # Libros
     path('libros/', views.lista_libros, name='lista_libros'),
-    # Añadir rutas para autores, usuarios, préstamos...
+    path('libros/nuevo/', views.crear_libro, name='crear_libro'),
+    path('libros/<int:pk>/', views.detalle_libro, name='detalle_libro'),
+    path('libros/<int:pk>/editar/', views.editar_libro, name='editar_libro'),
+    path('libros/<int:pk>/eliminar/', views.eliminar_libro, name='eliminar_libro'),
 
+    # Autores
     path('autores/', views.lista_autores, name='lista_autores'),
     path('autores/nuevo/', views.crear_autor, name='crear_autor'),
+    path('autores/<int:pk>/', views.detalle_autor, name='detalle_autor'),
+    path('autores/<int:pk>/editar/', views.editar_autor, name='editar_autor'),
+    path('autores/<int:pk>/eliminar/', views.eliminar_autor, name='eliminar_autor'),
 
+    # Usuarios
     path('usuarios/', views.lista_usuarios, name='lista_usuarios'),
     path('usuarios/nuevo/', views.crear_usuario, name='crear_usuario'),
+    path('usuarios/<int:pk>/', views.detalle_usuario, name='detalle_usuario'),
+    path('usuarios/<int:pk>/editar/', views.editar_usuario, name='editar_usuario'),
+    path('usuarios/<int:pk>/eliminar/', views.eliminar_usuario, name='eliminar_usuario'),
 
+    # Préstamos
     path('prestamos/', views.lista_prestamos, name='lista_prestamos'),
     path('prestamos/nuevo/', views.crear_prestamo, name='crear_prestamo'),
+    path('prestamos/<int:pk>/', views.detalle_prestamo, name='detalle_prestamo'),
+    path('prestamos/<int:pk>/editar/', views.editar_prestamo, name='editar_prestamo'),
+    path('prestamos/<int:pk>/eliminar/', views.eliminar_prestamo, name='eliminar_prestamo'),
 ]
 
 

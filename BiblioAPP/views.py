@@ -103,3 +103,94 @@ def eliminar_autor(request, pk):
         autor.delete()
         return redirect('lista_autores')
     return render(request, 'autores/eliminar.html', {'autor': autor})
+
+# Ver usuario
+def detalle_usuario(request, pk):
+    usuario = get_object_or_404(Usuario, pk=pk)
+    return render(request, 'usuarios/detalle.html', {'usuario': usuario})
+
+# Editar usuario
+def editar_usuario(request, pk):
+    usuario = get_object_or_404(Usuario, pk=pk)
+    form = UsuarioForm(request.POST or None, instance=usuario)
+    if form.is_valid():
+        form.save()
+        return redirect('lista_usuarios')
+    return render(request, 'formulario.html', {'form': form})
+
+# Eliminar usuario
+def eliminar_usuario(request, pk):
+    usuario = get_object_or_404(Usuario, pk=pk)
+    if request.method == "POST":
+        usuario.delete()
+        return redirect('lista_usuarios')
+    return render(request, 'usuarios/eliminar.html', {'usuario': usuario})
+
+# Ver préstamo
+def detalle_prestamo(request, pk):
+    prestamo = get_object_or_404(Prestamo, pk=pk)
+    return render(request, 'prestamos/detalle.html', {'prestamo': prestamo})
+
+# Editar préstamo
+def editar_prestamo(request, pk):
+    prestamo = get_object_or_404(Prestamo, pk=pk)
+    form = PrestamoForm(request.POST or None, instance=prestamo)
+    if form.is_valid():
+        form.save()
+        return redirect('lista_prestamos')
+    return render(request, 'formulario.html', {'form': form})
+
+# Eliminar préstamo
+def eliminar_prestamo(request, pk):
+    prestamo = get_object_or_404(Prestamo, pk=pk)
+    if request.method == "POST":
+        prestamo.delete()
+        return redirect('lista_prestamos')
+    return render(request, 'prestamos/eliminar.html', {'prestamo': prestamo})
+
+# Lista de préstamos
+def lista_prestamos(request):
+    prestamos = Prestamo.objects.all()
+    return render(request, 'prestamos/lista.html', {'prestamos': prestamos})
+
+# Crear préstamo
+def crear_prestamo(request):
+    if request.method == 'POST':
+        form = PrestamoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_prestamos')
+    else:
+        form = PrestamoForm()
+    return render(request, 'formulario.html', {'form': form})
+
+# Lista de usuarios
+def lista_usuarios(request):
+    usuarios = Usuario.objects.all()
+    return render(request, 'usuarios/lista.html', {'usuarios': usuarios})
+
+# Crear usuario
+def crear_usuario(request):
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_usuarios')
+    else:
+        form = UsuarioForm()
+    return render(request, 'formulario.html', {'form': form})
+
+def lista_autores(request):
+    autores = Autor.objects.all()
+    return render(request, 'autores/lista.html', {'autores': autores})
+
+# Crear autor
+def crear_autor(request):
+    if request.method == 'POST':
+        form = AutorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_autores')
+    else:
+        form = AutorForm()
+    return render(request, 'formulario.html', {'form': form})
