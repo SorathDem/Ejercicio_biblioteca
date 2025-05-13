@@ -1,20 +1,22 @@
 from django import forms
 from .models import Libro, Autor, Usuario, Prestamo
 
+
 class LibroForm(forms.ModelForm):
     class Meta:
         model = Libro
-        fields = '_all_'
+        fields = '__all__' 
+
 
 class AutorForm(forms.ModelForm):
     class Meta:
         model = Autor
-        fields = '_all_'
+        fields = '__all__'
 
 class UsuarioForm(forms.ModelForm):
     class Meta:
         model = Usuario
-        fields = '_all_'
+        fields = '__all__'
 
 class PrestamoForm(forms.ModelForm):
     class Meta:

@@ -3,14 +3,14 @@ from django.db import models
 class Autor(models.Model):
     nombre = models.CharField(max_length=100)
 
-    def _str_(self):
+    def __str__(self):
         return self.nombre
 
 class Usuario(models.Model):
     nombre = models.CharField(max_length=100)
     correo = models.EmailField()
 
-    def _str_(self):
+    def __str__(self):
         return self.nombre
 
 class Libro(models.Model):
@@ -18,7 +18,7 @@ class Libro(models.Model):
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
     genero = models.CharField(max_length=100)
 
-    def _str_(self):
+    def __str__(self):
         return self.titulo
 
 class Prestamo(models.Model):

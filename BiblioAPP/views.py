@@ -12,7 +12,7 @@ def buscar_libros(request):
     resultados = Libro.objects.filter(
         titulo__icontains=query
     ) | Libro.objects.filter(
-        autor_nombre_icontains=query
+        autor__nombre__icontains=query
     ) | Libro.objects.filter(
         genero__icontains=query
     )
