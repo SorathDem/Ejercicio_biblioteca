@@ -31,6 +31,15 @@ urlpatterns = [
     path("libros/eliminar/<int:pk>/", views.eliminar_libro, name="eliminar_libro"),
     path('libros/', views.lista_libros, name='lista_libros'),
     # Añadir rutas para autores, usuarios, préstamos...
+
+    path('autores/', views.lista_autores, name='lista_autores'),
+    path('autores/nuevo/', views.crear_autor, name='crear_autor'),
+
+    path('usuarios/', views.lista_usuarios, name='lista_usuarios'),
+    path('usuarios/nuevo/', views.crear_usuario, name='crear_usuario'),
+
+    path('prestamos/', views.lista_prestamos, name='lista_prestamos'),
+    path('prestamos/nuevo/', views.crear_prestamo, name='crear_prestamo'),
 ]
 
 
